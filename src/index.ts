@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
-import session from "cookie-session";
+import session from "express-session";
 import { config } from "./config/app.config";
 import connectDatabase from "./config/database.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
@@ -10,18 +10,25 @@ import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { BadRequestException } from "./utils/appError";
 import { ErrorCodeEnum } from "./enums/errorCode.enum";
 
+import "./config/passport.config";
+import passport from "passport";
+import authRoutes from "./routes/auth.routes";
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    name: "session",
-    keys: [config.SESSION_SECRET],
-    maxAge: 24 * 60 * 60 * 1000,
-    secure: config.NODE_ENV === "production",
-    httpOnly: true,
-    sameSite: "lax",
+    secret: config.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+      secure: config.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "lax",
+    },
   })
 );
 app.use(
@@ -32,6 +39,9 @@ app.use(
 );
 
 app.use(errorHandler);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get(
   `/`,
@@ -45,6 +55,8 @@ app.get(
     });
   })
 );
+
+app.use(`${config.BASE_PATH}/auth`, authRoutes);
 
 app.listen(config.PORT, async () => {
   console.log(`Server started on port ${config.PORT}`);

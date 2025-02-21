@@ -16,13 +16,8 @@ export const loginOrCreateAccountService = async (data: {
 }) => {
   const { providerId, provider, displayName, email, picture } = data;
 
-  const session = await mongoose.startSession();
-
   try {
-    session.startTransaction();
-    console.log("Started Session...");
-
-    let user = await UserModel.findOne({ email }).session(session);
+    let user = await UserModel.findOne({ email });
     if (!user) {
       //1. creating user in User model
       user = new UserModel({
@@ -30,7 +25,7 @@ export const loginOrCreateAccountService = async (data: {
         name: displayName,
         profilePicture: picture || null,
       });
-      await user.save({ session });
+      await user.save();
 
       //2. creating account in Account model
       const account = new AccountModel({
@@ -38,7 +33,7 @@ export const loginOrCreateAccountService = async (data: {
         provider: provider,
         providerId: providerId,
       });
-      await account.save({ session });
+      await account.save();
 
       // 3. Create a new workspace in Workspace model
       const workspace = new WorkspaceModel({
@@ -46,12 +41,12 @@ export const loginOrCreateAccountService = async (data: {
         description: `Workspace created for ${user.name}`,
         owner: user._id,
       });
-      await workspace.save({ session });
+      await workspace.save();
 
       // 4. Find role from Role model
       const ownerRole = await RoleModel.findOne({
         name: Roles.OWNER,
-      }).session(session);
+      });
 
       if (!ownerRole) {
         throw new NotFoundException("Owner role not found");
@@ -64,22 +59,14 @@ export const loginOrCreateAccountService = async (data: {
         role: ownerRole._id,
         joinedAt: new Date(),
       });
-      await member.save({ session });
+      await member.save();
 
       user.currentWorkspace = workspace._id as mongoose.Types.ObjectId;
-      await user.save({ session });
+      await user.save();
     }
-
-    await session.commitTransaction();
-    session.endSession();
-    console.log("End Session...");
 
     return { user };
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
     throw error;
-  } finally {
-    session.endSession();
   }
 };
