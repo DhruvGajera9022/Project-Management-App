@@ -18,6 +18,7 @@ import { isAuthenticated } from "./middlewares/isAuthenticated.middleware";
 import workspaceRoutes from "./routes/workspace.routes";
 import memberRoutes from "./routes/member.routes";
 import projectRoutes from "./routes/projects.routes";
+import taskRoutes from "./routes/task.routes";
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use(`${config.BASE_PATH}/user`, isAuthenticated, userRoutes);
 app.use(`${config.BASE_PATH}/workspace`, isAuthenticated, workspaceRoutes);
 app.use(`${config.BASE_PATH}/member`, isAuthenticated, memberRoutes);
 app.use(`${config.BASE_PATH}/project`, isAuthenticated, projectRoutes);
+app.use(`${config.BASE_PATH}/task`, isAuthenticated, taskRoutes);
 
 app.listen(config.PORT, async () => {
   console.log(`Server started on port ${config.PORT}`);
