@@ -4,7 +4,7 @@ import MemberModel from "../models/member.model";
 import RoleModel from "../models/roles-permission.model";
 import UserModel from "../models/user.model";
 import WorkspaceModel from "../models/workspace.model";
-import { NotFoundException } from "../utils/appError";
+import { NotFoundException, UnauthorizedException } from "../utils/appError";
 
 export const createWorkspaceService = async (
   userId: string,
@@ -55,4 +55,20 @@ export const getAllWorkspaceUserIsMemberService = async (userId: string) => {
   const workspaces = memberships.map((membership) => membership.workspaceId);
 
   return { workspaces };
+};
+
+export const getWorkspaceByIdService = async (workspaceId: string) => {
+  const workspace = await WorkspaceModel.findById(workspaceId);
+  if (!workspace) {
+    throw new NotFoundException("Workspace not found");
+  }
+
+  const members = await MemberModel.find({ workspaceId }).populate("role");
+
+  const workspaceWithMembers = {
+    ...workspace.toObject(),
+    members,
+  };
+
+  return { workspace: workspaceWithMembers };
 };
