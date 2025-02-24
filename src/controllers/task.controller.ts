@@ -6,7 +6,11 @@ import { getMemberRoleInWorkspace } from "../services/member.service";
 import { Permissions } from "../enums/role.enum";
 import { roleGuard } from "../utils/roleGuard";
 import { HttpStatus } from "../config/http.config";
-import { createTaskService, updateTaskService } from "../services/task.service";
+import {
+  createTaskService,
+  getAllTasksService,
+  updateTaskService,
+} from "../services/task.service";
 import {
   createTaskSchema,
   taskIdSchema,
@@ -35,6 +39,45 @@ export const createTaskController = asyncHandler(
     return res.status(HttpStatus.OK).json({
       message: "Task created successfully",
       task,
+    });
+  }
+);
+
+// get all task controller
+export const getAllTasksController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const userId = req.user?._id;
+
+    const workspaceId = workspaceIdSchema.parse(req.params.workspaceId);
+
+    const filters = {
+      projectId: req.query.projectId as string | undefined,
+      status: req.query.status
+        ? (req.query.status as string)?.split(",")
+        : undefined,
+      priority: req.query.priority
+        ? (req.query.priority as string)?.split(",")
+        : undefined,
+      assignedTo: req.query.assignedTo
+        ? (req.query.assignedTo as string)?.split(",")
+        : undefined,
+      keyword: req.query.keyword as string | undefined,
+      dueDate: req.query.dueDate as string | undefined,
+    };
+
+    const pagination = {
+      pageSize: parseInt(req.query.pageSize as string) || 10,
+      pageNumber: parseInt(req.query.pageNumber as string) || 1,
+    };
+
+    const { role } = await getMemberRoleInWorkspace(userId, workspaceId);
+    roleGuard(role, [Permissions.VIEW_ONLY]);
+
+    const result = await getAllTasksService(workspaceId, filters, pagination);
+
+    return res.status(HttpStatus.OK).json({
+      message: "All tasks fetched successfully",
+      ...result,
     });
   }
 );
