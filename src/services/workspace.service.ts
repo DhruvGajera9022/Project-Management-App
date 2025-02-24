@@ -183,13 +183,8 @@ export const deleteWorkspaceService = async (
   workspaceId: string,
   userId: string
 ) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
-    const workspace = await WorkspaceModel.findById(workspaceId).session(
-      session
-    );
+    const workspace = await WorkspaceModel.findById(workspaceId);
     if (!workspace) {
       throw new NotFoundException("Workspace not found");
     }
@@ -201,45 +196,35 @@ export const deleteWorkspaceService = async (
       );
     }
 
-    const user = await UserModel.findById(userId).session(session);
+    const user = await UserModel.findById(userId);
     if (!user) {
       throw new NotFoundException("User not found");
     }
 
-    await ProjectModel.deleteMany({ workspace: workspace._id }).session(
-      session
-    );
-    await TaskModel.deleteMany({ workspace: workspace._id }).session(session);
+    await ProjectModel.deleteMany({ workspace: workspace._id });
+    await TaskModel.deleteMany({ workspace: workspace._id });
 
     await MemberModel.deleteMany({
       workspaceId: workspace._id,
-    }).session(session);
+    });
 
     // Update the user's currentWorkspace if it matches the deleted workspace
     if (user?.currentWorkspace?.equals(workspaceId)) {
-      const memberWorkspace = await MemberModel.findOne({ userId }).session(
-        session
-      );
+      const memberWorkspace = await MemberModel.findOne({ userId });
       // Update the user's currentWorkspace
       user.currentWorkspace = memberWorkspace
         ? memberWorkspace.workspaceId
         : null;
 
-      await user.save({ session });
+      await user.save();
     }
 
-    await workspace.deleteOne({ session });
-
-    await session.commitTransaction();
-
-    session.endSession();
+    await workspace.deleteOne();
 
     return {
       currentWorkspace: user.currentWorkspace,
     };
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
     throw error;
   }
 };
