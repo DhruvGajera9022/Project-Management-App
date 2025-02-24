@@ -13,6 +13,7 @@ import { ErrorCodeEnum } from "./enums/errorCode.enum";
 import "./config/passport.config";
 import passport from "passport";
 import authRoutes from "./routes/auth.routes";
+import userRoutes from "./routes/user.routes";
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.get(
 );
 
 app.use(`${config.BASE_PATH}/auth`, authRoutes);
+app.use(`${config.BASE_PATH}/user`, userRoutes);
 
 app.listen(config.PORT, async () => {
   console.log(`Server started on port ${config.PORT}`);
