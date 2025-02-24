@@ -152,3 +152,25 @@ export const updateWorkspaceByIdController = asyncHandler(
     });
   }
 );
+
+// delete workspace controller
+export const deleteWorkspaceByIdController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const workspaceId = workspaceIdSchema.parse(req.params.id);
+
+    const userId = req.user?._id;
+
+    const { role } = await getMemberRoleInWorkspace(userId, workspaceId);
+    roleGuard(role, [Permissions.DELETE_WORKSPACE]);
+
+    const { currentWorkspace } = await deleteWorkspaceService(
+      workspaceId,
+      userId
+    );
+
+    return res.status(HttpStatus.OK).json({
+      message: "Workspace deleted successfully",
+      currentWorkspace,
+    });
+  }
+);
