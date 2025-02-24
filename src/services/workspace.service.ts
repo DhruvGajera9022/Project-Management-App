@@ -6,6 +6,7 @@ import UserModel from "../models/user.model";
 import WorkspaceModel from "../models/workspace.model";
 import { NotFoundException, UnauthorizedException } from "../utils/appError";
 
+// create new workspace service
 export const createWorkspaceService = async (
   userId: string,
   body: {
@@ -45,6 +46,7 @@ export const createWorkspaceService = async (
   return { workspace };
 };
 
+// users all workspace service
 export const getAllWorkspaceUserIsMemberService = async (userId: string) => {
   const memberships = await MemberModel.find({ userId })
     .populate("workspaceId")
@@ -57,6 +59,7 @@ export const getAllWorkspaceUserIsMemberService = async (userId: string) => {
   return { workspaces };
 };
 
+// workspace by id service
 export const getWorkspaceByIdService = async (workspaceId: string) => {
   const workspace = await WorkspaceModel.findById(workspaceId);
   if (!workspace) {
@@ -73,6 +76,7 @@ export const getWorkspaceByIdService = async (workspaceId: string) => {
   return { workspace: workspaceWithMembers };
 };
 
+// workspace members service
 export const getWorkspaceMembersService = async (workspaceId: string) => {
   const members = await MemberModel.find({
     workspaceId,

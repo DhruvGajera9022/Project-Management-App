@@ -15,6 +15,7 @@ import { getMemberRoleInWorkspace } from "../services/member.service";
 import { Permissions } from "../enums/role.enum";
 import { roleGuard } from "../utils/roleGuard";
 
+// create new workspace controller
 export const createWorkspaceController = asyncHandler(
   async (req: Request, res: Response) => {
     const body = createWorkspaceSchema.parse(req.body);
@@ -29,6 +30,7 @@ export const createWorkspaceController = asyncHandler(
   }
 );
 
+// users all workspace controller
 export const getAllWorkspacesUserIsMemberController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
@@ -42,6 +44,7 @@ export const getAllWorkspacesUserIsMemberController = asyncHandler(
   }
 );
 
+// workspace by id controller
 export const getWorkspaceByIdController = asyncHandler(
   async (req: Request, res: Response) => {
     const workspaceId = workspaceIdSchema.parse(req.params.id);
@@ -58,6 +61,7 @@ export const getWorkspaceByIdController = asyncHandler(
   }
 );
 
+// workspace members controller
 export const getWorkspaceMembersController = asyncHandler(
   async (req: Request, res: Response) => {
     const workspaceId = workspaceIdSchema.parse(req.params.id);
