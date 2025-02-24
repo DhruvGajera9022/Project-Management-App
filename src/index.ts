@@ -14,6 +14,7 @@ import "./config/passport.config";
 import passport from "passport";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
+import { isAuthenticated } from "./middlewares/isAuthenticated.middleware";
 
 const app = express();
 
@@ -58,7 +59,7 @@ app.get(
 );
 
 app.use(`${config.BASE_PATH}/auth`, authRoutes);
-app.use(`${config.BASE_PATH}/user`, userRoutes);
+app.use(`${config.BASE_PATH}/user`, isAuthenticated, userRoutes);
 
 app.listen(config.PORT, async () => {
   console.log(`Server started on port ${config.PORT}`);
