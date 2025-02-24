@@ -4,9 +4,13 @@ import { asyncHandler } from "../middlewares/asyncHandler.middleware";
 import { getMemberRoleInWorkspace } from "../services/member.service";
 import { workspaceIdSchema } from "../validation/workspace.validation";
 import { roleGuard } from "../utils/roleGuard";
-import { createProjectSchema } from "../validation/project.validation";
+import {
+  createProjectSchema,
+  projectIdSchema,
+} from "../validation/project.validation";
 import {
   createProjectService,
+  getProjectByIdAndWorkspaceIdService,
   getProjectsInWorkspaceService,
 } from "../services/project.service";
 import { Permissions } from "../enums/role.enum";
@@ -56,6 +60,29 @@ export const getAllProjectsInWorkspaceController = asyncHandler(
         skip,
         limit: pageSize,
       },
+    });
+  }
+);
+
+// get project controller
+export const getProjectByIdAndWorkspaceIdController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const projectId = projectIdSchema.parse(req.params.id);
+    const workspaceId = workspaceIdSchema.parse(req.params.workspaceId);
+
+    const userId = req.user?._id;
+
+    const { role } = await getMemberRoleInWorkspace(userId, workspaceId);
+    roleGuard(role, [Permissions.VIEW_ONLY]);
+
+    const { project } = await getProjectByIdAndWorkspaceIdService(
+      workspaceId,
+      projectId
+    );
+
+    return res.status(HttpStatus.OK).json({
+      message: "Project fetched successfully",
+      project,
     });
   }
 );
