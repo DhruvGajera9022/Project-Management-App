@@ -44,3 +44,15 @@ export const createWorkspaceService = async (
 
   return { workspace };
 };
+
+export const getAllWorkspaceUserIsMemberService = async (userId: string) => {
+  const memberships = await MemberModel.find({ userId })
+    .populate("workspaceId")
+    .select("-password")
+    .exec();
+
+  // Extract workspace details from memberships
+  const workspaces = memberships.map((membership) => membership.workspaceId);
+
+  return { workspaces };
+};
