@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createProjectController,
   getAllProjectsInWorkspaceController,
+  getProjectAnalyticsController,
   getProjectByIdAndWorkspaceIdController,
 } from "../controllers/project.controller";
 const projectRoutes = Router();
@@ -16,6 +17,11 @@ projectRoutes.get(
 projectRoutes.get(
   "/:id/workspace/:workspaceId",
   getProjectByIdAndWorkspaceIdController
+);
+
+projectRoutes.get(
+  "/:id/workspace/:workspaceId/analytics",
+  getProjectAnalyticsController
 );
 
 export default projectRoutes;
