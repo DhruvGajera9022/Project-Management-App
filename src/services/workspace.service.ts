@@ -4,9 +4,14 @@ import MemberModel from "../models/member.model";
 import RoleModel from "../models/roles-permission.model";
 import UserModel from "../models/user.model";
 import WorkspaceModel from "../models/workspace.model";
-import { NotFoundException, UnauthorizedException } from "../utils/appError";
+import {
+  BadRequestException,
+  NotFoundException,
+  UnauthorizedException,
+} from "../utils/appError";
 import TaskModel from "../models/task.model";
 import { TaskStatusEnum } from "../enums/task.enum";
+import ProjectModel from "../models/projects.model";
 
 // create new workspace service
 export const createWorkspaceService = async (
@@ -149,5 +154,26 @@ export const changeMemberRoleService = async (
 
   return {
     member,
+  };
+};
+
+// update workspace service
+export const updateWorkspaceByIdService = async (
+  workspaceId: string,
+  name: string,
+  description?: string
+) => {
+  const workspace = await WorkspaceModel.findById(workspaceId);
+  if (!workspace) {
+    throw new NotFoundException("Workspace not found");
+  }
+
+  // Update the workspace details
+  workspace.name = name || workspace.name;
+  workspace.description = description || workspace.description;
+  await workspace.save();
+
+  return {
+    workspace,
   };
 };
