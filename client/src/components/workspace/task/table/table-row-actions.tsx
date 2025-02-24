@@ -13,6 +13,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ConfirmDialog } from "@/components/resuable/confirm-dialog";
 import { TaskType } from "@/types/api.type";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useWorkspaceId from "@/hooks/use-workspace-id";
+import { deleteTaskMutationFn } from "@/lib/api";
+import { toast } from "@/hooks/use-toast";
 
 interface DataTableRowActionsProps {
   row: Row<TaskType>;
@@ -20,11 +24,44 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [openDeleteDialog, setOpenDialog] = useState(false);
+  const queryClient = useQueryClient();
+  const workspaceId = useWorkspaceId();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteTaskMutationFn,
+  });
 
   const taskId = row.original._id as string;
   const taskCode = row.original.taskCode;
 
-  const handleConfirm = () => {};
+  const handleConfirm = () => {
+    mutate(
+      {
+        workspaceId,
+        taskId,
+      },
+      {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries({
+            queryKey: ["all-tasks", workspaceId],
+          });
+          toast({
+            title: "Success",
+            description: data.message,
+            variant: "success",
+          });
+          setTimeout(() => setOpenDialog(false), 100);
+        },
+        onError: (error) => {
+          toast({
+            title: "Error",
+            description: error.message,
+            variant: "destructive",
+          });
+        },
+      }
+    );
+  };
 
   return (
     <>
@@ -55,7 +92,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
 
       <ConfirmDialog
         isOpen={openDeleteDialog}
-        isLoading={false}
+        isLoading={isPending}
         onClose={() => setOpenDialog(false)}
         onConfirm={handleConfirm}
         title="Delete Task"
