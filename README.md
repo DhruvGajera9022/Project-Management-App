@@ -51,8 +51,8 @@ A powerful and intuitive project management application built with a **React** f
 1️⃣ **Clone the repository**:
 
 ```bash
-git clone https://github.com/yourusername/project-management-app.git
-cd project-management-app
+git clone https://github.com/DhruvGajera9022/Project-Management-App.git
+cd Project-Management-App
 ```
 
 2️⃣ **Install dependencies**:
@@ -146,7 +146,7 @@ client/
 │   ├── page/          # Page components for different routes
 │   ├── routes/        # React Router configuration
 │   ├── types/         # TypeScript type definitions
-│   ├── App.tsx        # Main application entry point
+│   └── App.tsx        # Main application entry point
 ```
 
 ---
