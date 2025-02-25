@@ -1,54 +1,62 @@
-# Project Management App
+# 📌 Project Management App
 
-A comprehensive project management application built with a React frontend and Express backend.
+A powerful and intuitive project management application built with a **React** frontend and **Express** backend. Designed for seamless team collaboration, task tracking, and workspace organization.
+
+---
 
 ## 🚀 Features
 
-- User authentication with Google OAuth via Passport.js
-- User registration and login with email/password
-- Workspace management with member roles
-- Project organization within workspaces
-- Task tracking and management
-- Team collaboration with invite codes
-- Analytics for workspaces and projects
-- Responsive design for all devices
-- Form validation with Zod
+- 🔐 **User Authentication** with Google OAuth via Passport.js
+- 📝 **Email/Password Registration & Login**
+- 👥 **Workspace Management** with roles & permissions
+- 📂 **Project Organization** within workspaces
+- ✅ **Task Tracking & Management**
+- 🔗 **Team Collaboration** with invite codes
+- 📊 **Analytics** for workspaces & projects
+- 📱 **Responsive Design** for all devices
+- 🛡️ **Form Validation** using Zod
+
+---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
 
-- **React** + **Vite**: Fast and efficient development environment
-- **TypeScript**: Type safety and better development experience
-- **Tailwind CSS**: Utility-first CSS framework for responsive design
-- **Radix UI**: Accessible component primitives
+- **React** + **Vite** ⚡ (Fast development environment)
+- **TypeScript** 🔍 (Strong type safety)
+- **Tailwind CSS** 🎨 (Utility-first CSS for responsive design)
+- **Radix UI** 🏗️ (Accessible UI component library)
 
 ### Backend
 
-- **Express.js**: Fast, unopinionated web framework for Node.js
-- **TypeScript**: Enhanced code quality and maintainability
-- **MongoDB**: NoSQL database for flexible data storage
-- **Passport.js**: Authentication middleware with Google OAuth strategy
-- **Express Session**: Session management
-- **Zod**: TypeScript-first schema validation
-- **Dotenv**: Environment variable management
+- **Express.js** 🚀 (Minimalist web framework for Node.js)
+- **TypeScript** ✅ (Enhanced maintainability & scalability)
+- **MongoDB** 🍃 (NoSQL database for flexible data storage)
+- **Passport.js** 🔑 (Authentication middleware with Google OAuth)
+- **Express Session** 🔄 (Session management)
+- **Zod** 🛡️ (Schema validation for inputs)
+- **Dotenv** 📜 (Environment variable management)
+
+---
 
 ## 📋 Prerequisites
 
-- Node.js (v16+)
-- MongoDB
-- Google OAuth credentials
+- **Node.js** (v16+)
+- **MongoDB** (Installed & running)
+- **Google OAuth Credentials** (Client ID & Secret)
+
+---
 
 ## 🚀 Installation
 
-1. Clone the repository:
+1️⃣ **Clone the repository**:
 
 ```bash
 git clone https://github.com/yourusername/project-management-app.git
 cd project-management-app
 ```
 
-2. Install dependencies:
+2️⃣ **Install dependencies**:
 
 ```bash
 # Install frontend dependencies
@@ -60,10 +68,11 @@ cd ../server
 npm install
 ```
 
-3. Set up environment variables:
-   Create a `.env` file in the server directory with the following variables:
+3️⃣ **Set up environment variables**:
 
-```
+Create a `.env` file in the `server` directory:
+
+```ini
 PORT=5000
 NODE_ENV=development
 SESSION_SECRET=your_session_secret
@@ -75,7 +84,7 @@ GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
-4. Start the development servers:
+4️⃣ **Start the development servers**:
 
 ```bash
 # Start backend server
@@ -87,14 +96,18 @@ cd client
 npm run dev
 ```
 
+---
+
 ## 🌐 Usage
 
-1. Navigate to `http://localhost:5173` in your browser
-2. Sign in with your Google account or register with email/password
-3. Create workspaces and invite team members using invite codes
-4. Create and manage projects within workspaces
-5. Create and assign tasks
-6. View analytics for workspaces and projects
+1. Open `http://localhost:5173` in your browser.
+2. Sign in with Google OAuth or register using email/password.
+3. Create **workspaces** and invite team members.
+4. Create **projects** within workspaces.
+5. Assign and manage **tasks** efficiently.
+6. View **analytics** for workspaces & projects.
+
+---
 
 ## 📁 Project Structure
 
@@ -104,12 +117,12 @@ npm run dev
 backend/
 ├── src/
 │   ├── @types/              # TypeScript type definitions
-│   ├── config/              # Application configuration
-│   │   ├── app.config.ts    # App settings
-│   │   ├── database.config.ts # MongoDB connection
+│   ├── config/              # Configuration files
+│   │   ├── app.config.ts    # Application settings
+│   │   ├── database.config.ts # MongoDB connection setup
 │   │   ├── http.config.ts   # HTTP status codes
-│   │   └── passport.config.ts # Passport auth setup
-│   ├── controllers/         # Request handlers
+│   │   └── passport.config.ts # OAuth configuration
+│   ├── controllers/         # Route handlers
 │   │   ├── auth.controller.ts
 │   │   ├── member.controller.ts
 │   │   ├── project.controller.ts
@@ -123,104 +136,91 @@ backend/
 │   │   ├── errorHandler.middleware.ts
 │   │   └── isAuthenticated.middleware.ts
 │   ├── models/              # MongoDB schema models
-│   ├── routes/              # API route definitions
-│   │   ├── auth.routes.ts
-│   │   ├── member.routes.ts
-│   │   ├── projects.routes.ts
-│   │   ├── task.routes.ts
-│   │   ├── user.routes.ts
-│   │   └── workspace.routes.ts
-│   ├── seeders/             # Database seed scripts
-│   ├── services/            # Business logic layer
+│   │   ├── account.model.ts
+│   │   ├── member.model.ts
+│   │   ├── projects.model.ts
+│   │   ├── role-permission.model.ts
+│   │   ├── task.model.ts
+│   │   ├── user.model.ts
+│   │   └── workspace.model.ts
+│   ├── routes/              # API endpoints
+│   ├── seeders/             # Database seeding scripts
+│   ├── services/            # Business logic
 │   ├── utils/               # Utility functions
 │   │   └── appError.ts
 │   ├── validations/         # Input validation schemas
-│   └── index.ts             # Application entry point
+│   └── index.ts             # Entry point
 ```
+
+---
 
 ## 🔒 Authentication
 
-This application supports multiple authentication methods:
+### Supported Methods
 
-1. **Email/Password Authentication**:
+1️⃣ **Email/Password Authentication**:
 
-   - Register with email and password
-   - Login with registered credentials
+- Register and login with email/password.
 
-2. **Google OAuth**:
-   - Sign in with your Google account
-   - Automatic profile creation
+2️⃣ **Google OAuth**:
 
-All protected routes are secured with the `isAuthenticated` middleware to ensure only authenticated users can access them.
+- Sign in with Google credentials.
+
+✔️ All protected routes require authentication using `isAuthenticated` middleware.
+
+---
 
 ## 📝 API Documentation
 
 ### Base Path
 
-All API endpoints are prefixed with the BASE_PATH defined in your environment variables (default: `/api`).
+All API endpoints are prefixed with `/api`.
 
-### Authentication Routes
+#### 🛠️ **Authentication**
 
-- `POST /api/auth/register`: Register a new user
-- `POST /api/auth/login`: User login
-- `POST /api/auth/logout`: User logout
-- `GET /api/auth/google`: Initiate Google OAuth flow
-- `GET /api/auth/google/callback`: Google OAuth callback
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login user
+- `POST /api/auth/logout` - Logout user
+- `GET /api/auth/google` - Google OAuth login
+- `GET /api/auth/google/callback` - Google OAuth callback
 
-### User Routes
+#### 👤 **User**
 
-- `GET /api/user/current`: Get current user information
+- `GET /api/user/current` - Get current user
 
-### Workspace Routes
+#### 🏢 **Workspace**
 
-- `POST /api/workspace/create/new`: Create a new workspace
-- `GET /api/workspace/all`: Get all workspaces the user is a member of
-- `GET /api/workspace/:id`: Get workspace by ID
-- `GET /api/workspace/members/:id`: Get all members of a workspace
-- `GET /api/workspace/analytics/:id`: Get analytics for a workspace
-- `PUT /api/workspace/change/member/role/:id`: Change a member's role in a workspace
-- `PUT /api/workspace/update/:id`: Update workspace details
-- `DELETE /api/workspace/delete/:id`: Delete a workspace
+- `POST /api/workspace/create/new` - Create workspace
+- `GET /api/workspace/all` - Get all user workspaces
+- `GET /api/workspace/:id` - Get workspace by ID
+- `GET /api/workspace/members/:id` - Get workspace members
+- `GET /api/workspace/analytics/:id` - Get workspace analytics
+- `PUT /api/workspace/update/:id` - Update workspace
+- `DELETE /api/workspace/delete/:id` - Delete workspace
 
-### Member Routes
+#### 📂 **Projects**
 
-- `POST /api/member/workspace/:inviteCode/join`: Join a workspace using an invite code
+- `POST /api/project/workspace/:workspaceId/create` - Create project
+- `GET /api/project/workspace/:workspaceId/all` - Get projects
+- `GET /api/project/:id/workspace/:workspaceId` - Get project by ID
+- `PUT /api/project/:id/workspace/:workspaceId/update` - Update project
+- `DELETE /api/project/:id/workspace/:workspaceId/delete` - Delete project
 
-### Project Routes
+#### ✅ **Tasks**
 
-- `POST /api/project/workspace/:workspaceId/create`: Create a new project
-- `GET /api/project/workspace/:workspaceId/all`: Get all projects in a workspace
-- `GET /api/project/:id/workspace/:workspaceId`: Get project by ID within a workspace
-- `GET /api/project/:id/workspace/:workspaceId/analytics`: Get project analytics
-- `PUT /api/project/:id/workspace/:workspaceId/update`: Update a project
-- `DELETE /api/project/:id/workspace/:workspaceId/delete`: Delete a project
+- `POST /api/task/project/:projectId/create` - Create task
+- `GET /api/task/workspace/:workspaceId/all` - Get tasks
+- `PUT /api/task/:id/update` - Update task
+- `DELETE /api/task/:id/delete` - Delete task
 
-### Task Routes
-
-- `POST /api/task/project/:projectId/workspace/:workspaceId/create`: Create a new task
-- `GET /api/task/workspace/:workspaceId/all`: Get all tasks in a workspace
-- `GET /api/task/:id/project/:projectId/workspace/:workspaceId`: Get task by ID
-- `PUT /api/task/:id/project/:projectId/workspace/:workspaceId/update`: Update a task
-- `DELETE /api/task/:id/workspace/:workspaceId/delete`: Delete a task
-
-## 🔧 Architecture
-
-The application follows a layered architecture pattern:
-
-1. **Routes**: Define API endpoints and map them to controllers
-2. **Controllers**: Handle HTTP requests and responses
-3. **Services**: Contain business logic and interact with models
-4. **Models**: Define data structure and interact with the database
-5. **Validations**: Ensure data integrity using Zod schemas
-6. **Middlewares**: Process requests before they reach route handlers
-7. **Utils**: Provide helper functions and custom error classes
-
-This separation of concerns makes the codebase more maintainable and testable.
+---
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/project-management-app/issues).
+Contributions are welcome! Check the [issues page](https://github.com/yourusername/project-management-app/issues) for open tasks.
+
+---
 
 ## 📜 License
 
-This project is [MIT](LICENSE) licensed.
+This project is **MIT Licensed**.
