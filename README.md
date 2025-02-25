@@ -115,8 +115,6 @@ npm run dev
 
 ## 📁 Project Structure
 
-### Backend Structure
-
 ```
 backend/
 ├── src/
