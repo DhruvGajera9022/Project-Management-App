@@ -33,7 +33,6 @@ A powerful and intuitive project management application built with a **React** f
 - **TypeScript** ✅ (Enhanced maintainability & scalability)
 - **MongoDB** 🍃 (NoSQL database for flexible data storage)
 - **Passport.js** 🔑 (Authentication middleware with Google OAuth)
-- **Express Session** 🔄 (Session management)
 - **Zod** 🛡️ (Schema validation for inputs)
 - **Dotenv** 📜 (Environment variable management)
 
@@ -75,13 +74,18 @@ Create a `.env` file in the `server` directory:
 ```ini
 PORT=5000
 NODE_ENV=development
+
+MONGO_URI=your_mongodb_connection_string
+
 SESSION_SECRET=your_session_secret
-FRONTEND_ORIGIN=http://localhost:5173
-FRONTEND_GOOGLE_CALLBACK_URL=http://localhost:5173/auth/callback
-BASE_PATH=/api
-MONGODB_URI=your_mongodb_connection_string
+SESSION_EXPIRES_IN=1d
+
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CALLBACK_URL=your_google_callback_url
+
+FRONTEND_ORIGIN=http://localhost:5173
+FRONTEND_GOOGLE_CALLBACK_URL=http://localhost:5173/auth/callback
 ```
 
 4️⃣ **Start the development servers**:
@@ -118,38 +122,31 @@ backend/
 ├── src/
 │   ├── @types/              # TypeScript type definitions
 │   ├── config/              # Configuration files
-│   │   ├── app.config.ts    # Application settings
-│   │   ├── database.config.ts # MongoDB connection setup
-│   │   ├── http.config.ts   # HTTP status codes
-│   │   └── passport.config.ts # OAuth configuration
 │   ├── controllers/         # Route handlers
-│   │   ├── auth.controller.ts
-│   │   ├── member.controller.ts
-│   │   ├── project.controller.ts
-│   │   ├── task.controller.ts
-│   │   ├── user.controller.ts
-│   │   └── workspace.controller.ts
 │   ├── enums/               # Enumeration types
-│   │   └── errorCode.enum.ts
 │   ├── middlewares/         # Express middlewares
-│   │   ├── asyncHandler.middleware.ts
-│   │   ├── errorHandler.middleware.ts
-│   │   └── isAuthenticated.middleware.ts
 │   ├── models/              # MongoDB schema models
-│   │   ├── account.model.ts
-│   │   ├── member.model.ts
-│   │   ├── projects.model.ts
-│   │   ├── role-permission.model.ts
-│   │   ├── task.model.ts
-│   │   ├── user.model.ts
-│   │   └── workspace.model.ts
 │   ├── routes/              # API endpoints
 │   ├── seeders/             # Database seeding scripts
 │   ├── services/            # Business logic
 │   ├── utils/               # Utility functions
-│   │   └── appError.ts
 │   ├── validations/         # Input validation schemas
 │   └── index.ts             # Entry point
+
+client/
+├── src/
+│   ├── assets/        # Static assets (images, icons, etc.)
+│   ├── components/    # Reusable UI components
+│   ├── constant/      # Constants and static data
+│   ├── context/       # React context for state management
+│   ├── hoc/           # Higher-order components
+│   ├── hooks/         # Custom React hooks
+│   ├── layout/        # Layout components (header, sidebar, etc.)
+│   ├── lib/           # Utility functions and libraries
+│   ├── page/          # Page components for different routes
+│   ├── routes/        # React Router configuration
+│   ├── types/         # TypeScript type definitions
+│   ├── App.tsx        # Main application entry point
 ```
 
 ---
@@ -212,15 +209,3 @@ All API endpoints are prefixed with `/api`.
 - `GET /api/task/workspace/:workspaceId/all` - Get tasks
 - `PUT /api/task/:id/update` - Update task
 - `DELETE /api/task/:id/delete` - Delete task
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Check the [issues page](https://github.com/yourusername/project-management-app/issues) for open tasks.
-
----
-
-## 📜 License
-
-This project is **MIT Licensed**.
