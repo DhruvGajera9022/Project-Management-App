@@ -6,6 +6,7 @@ import { HttpStatus } from "../config/http.config";
 import { registerUserService } from "../services/auth.service";
 import passport from "passport";
 
+// Google auth callback
 export const googleLoginCallback = asyncHandler(
   async (req: Request, res: Response) => {
     const currentWorkspace = req.user?.currentWorkspace;
@@ -19,6 +20,7 @@ export const googleLoginCallback = asyncHandler(
   }
 );
 
+// Register user
 export const registerUserController = asyncHandler(
   async (req: Request, res: Response) => {
     const body = registerSchema.parse({
@@ -33,6 +35,7 @@ export const registerUserController = asyncHandler(
   }
 );
 
+// Login user
 export const loginController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate(
@@ -67,6 +70,7 @@ export const loginController = asyncHandler(
   }
 );
 
+// Logout user
 export const logOutController = asyncHandler(
   async (req: Request, res: Response) => {
     req.logout((err) => {
