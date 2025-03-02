@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { UnauthorizedException } from "../utils/appError";
 
+// Check the authentication
 export const isAuthenticated = (
   req: Request,
   res: Response,

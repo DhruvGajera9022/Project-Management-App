@@ -4,6 +4,7 @@ import { AppError } from "../utils/appError";
 import { z, ZodError } from "zod";
 import { ErrorCodeEnum } from "../enums/errorCode.enum";
 
+// Format the validation error
 const formatZodError = (res: Response, error: z.ZodError) => {
   const errors = error?.issues?.map((err) => ({
     field: err.path.join("."),
@@ -16,6 +17,7 @@ const formatZodError = (res: Response, error: z.ZodError) => {
   });
 };
 
+// Error handler for the error
 export const errorHandler: ErrorRequestHandler = (
   error,
   req,

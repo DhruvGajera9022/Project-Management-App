@@ -6,6 +6,7 @@ type AsyncControllerType = (
   next: NextFunction
 ) => Promise<any>;
 
+// Async handler for the controller
 export const asyncHandler =
   (controller: AsyncControllerType): AsyncControllerType =>
   async (req, res, next) => {
