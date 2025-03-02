@@ -10,6 +10,7 @@ import {
   verifyUserService,
 } from "../services/auth.service";
 
+// Set up google passport auth
 passport.use(
   new GoogleStrategy(
     {
@@ -44,6 +45,7 @@ passport.use(
   )
 );
 
+// Verify the google auth
 passport.use(
   new LocalStrategy(
     {
