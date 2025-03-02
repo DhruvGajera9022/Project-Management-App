@@ -22,6 +22,7 @@ import taskRoutes from "./routes/task.routes";
 
 const app = express();
 
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -44,11 +45,14 @@ app.use(
   })
 );
 
+// Error handler middleware
 app.use(errorHandler);
 
+// Initialize passport auth
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Testing route
 app.get(
   `/`,
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -62,6 +66,7 @@ app.get(
   })
 );
 
+// Initialize all routes
 app.use(`${config.BASE_PATH}/auth`, authRoutes);
 app.use(`${config.BASE_PATH}/user`, isAuthenticated, userRoutes);
 app.use(`${config.BASE_PATH}/workspace`, isAuthenticated, workspaceRoutes);
@@ -69,6 +74,7 @@ app.use(`${config.BASE_PATH}/member`, isAuthenticated, memberRoutes);
 app.use(`${config.BASE_PATH}/project`, isAuthenticated, projectRoutes);
 app.use(`${config.BASE_PATH}/task`, isAuthenticated, taskRoutes);
 
+// Start the server
 app.listen(config.PORT, async () => {
   console.log(`Server started on port ${config.PORT}`);
   await connectDatabase();
