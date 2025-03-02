@@ -4,6 +4,7 @@ import { HttpStatus } from "../config/http.config";
 import { z } from "zod";
 import { joinWorkspaceByInviteService } from "../services/member.service";
 
+// Join workspace
 export const joinWorkspaceController = asyncHandler(
   async (req: Request, res: Response) => {
     const inviteCode = z.string().parse(req.params.inviteCode);
