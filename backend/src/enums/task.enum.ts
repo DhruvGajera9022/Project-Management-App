@@ -1,3 +1,4 @@
+// Task types
 export const TaskStatusEnum = {
   BACKLOG: "BACKLOG",
   TODO: "TODO",
@@ -6,6 +7,7 @@ export const TaskStatusEnum = {
   DONE: "DONE",
 } as const;
 
+// Task priority
 export const TaskPriorityEnum = {
   LOW: "LOW",
   MEDIUM: "MEDIUM",

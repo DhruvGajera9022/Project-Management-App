@@ -1,3 +1,4 @@
+// All error codes
 export const ErrorCodeEnum = {
   AUTH_EMAIL_ALREADY_EXISTS: "AUTH_EMAIL_ALREADY_EXISTS",
   AUTH_INVALID_TOKEN: "AUTH_INVALID_TOKEN",

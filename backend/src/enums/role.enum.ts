@@ -1,3 +1,4 @@
+// Roles for the project and workspace
 export const Roles = {
   OWNER: "OWNER",
   ADMIN: "ADMIN",
@@ -6,6 +7,7 @@ export const Roles = {
 
 export type RoleType = keyof typeof Roles;
 
+// Permissions for the project and workspace
 export const Permissions = {
   CREATE_WORKSPACE: "CREATE_WORKSPACE",
   DELETE_WORKSPACE: "DELETE_WORKSPACE",

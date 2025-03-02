@@ -1,3 +1,4 @@
+// Provider enum for login-register
 export const ProviderEnum = {
   GOOGLE: "GOOGLE",
   GITHUB: "GITHUB",
