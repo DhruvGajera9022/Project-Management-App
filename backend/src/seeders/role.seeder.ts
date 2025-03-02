@@ -4,6 +4,7 @@ import connectDatabase from "../config/database.config";
 import RoleModel from "../models/roles-permission.model";
 import { RolePermissions } from "../utils/role-permission";
 
+// Set the role directly in the database
 const seedRoles = async () => {
   console.log("Seeding roles started...");
 
@@ -11,7 +12,7 @@ const seedRoles = async () => {
     await connectDatabase();
 
     console.log("Clearing existing roles...");
-    await RoleModel.deleteMany({}); // No session needed
+    await RoleModel.deleteMany({});
 
     for (const roleName in RolePermissions) {
       const role = roleName as keyof typeof RolePermissions;

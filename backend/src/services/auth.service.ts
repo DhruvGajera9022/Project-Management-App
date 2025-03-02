@@ -12,6 +12,7 @@ import {
 import MemberModel from "../models/member.model";
 import { ProviderEnum } from "../enums/account-provider.enum";
 
+// Login and create account service
 export const loginOrCreateAccountService = async (data: {
   provider: string;
   displayName: string;
@@ -76,6 +77,7 @@ export const loginOrCreateAccountService = async (data: {
   }
 };
 
+// Register user service
 export const registerUserService = async (body: {
   email: string;
   name: string;
@@ -139,6 +141,7 @@ export const registerUserService = async (body: {
   }
 };
 
+// Verify the user
 export const verifyUserService = async ({
   email,
   password,
