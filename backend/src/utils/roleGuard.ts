@@ -2,6 +2,7 @@ import { PermissionType } from "../enums/role.enum";
 import { UnauthorizedException } from "./appError";
 import { RolePermissions } from "./role-permission";
 
+// Authenticate the role of the user
 export const roleGuard = (
   role: keyof typeof RolePermissions,
   requiredPermissions: PermissionType[]

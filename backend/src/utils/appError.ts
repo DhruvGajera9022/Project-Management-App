@@ -17,6 +17,7 @@ export class AppError extends Error {
   }
 }
 
+// Internal server exception
 export class InternalServerException extends AppError {
   constructor(
     message = "Internal Server Error",
@@ -30,6 +31,7 @@ export class InternalServerException extends AppError {
   }
 }
 
+// Not found exception
 export class NotFoundException extends AppError {
   constructor(message = "Resource not found", errorCode?: ErrorCodeEnumType) {
     super(
@@ -40,6 +42,7 @@ export class NotFoundException extends AppError {
   }
 }
 
+// Bad request exception
 export class BadRequestException extends AppError {
   constructor(message = "Bad Request", errorCode?: ErrorCodeEnumType) {
     super(
@@ -50,6 +53,7 @@ export class BadRequestException extends AppError {
   }
 }
 
+// Unauthorize exception
 export class UnauthorizedException extends AppError {
   constructor(message = "Unauthorized Access", errorCode?: ErrorCodeEnumType) {
     super(
